@@ -1,0 +1,359 @@
+/* ---------- Colours ---------- */
+:root {
+    --bg: #f4f6fb;
+    --card: #ffffff;
+    --text: #222222;
+    --muted: #666666;
+    --accent: #6c4ce4;
+    --accent-soft: #e9e4fc;
+    --shadow: rgba(0, 0, 0, 0.1);
+    --border: #d9d9e6;
+}
+
+/* ---------- Basic page styling ---------- */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+}
+
+/* Stop page scrolling while lightbox is open */
+body.no-scroll {
+    overflow: hidden;
+}
+
+/* ---------- Header ---------- */
+header {
+    position: relative;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 36px;
+    color: var(--accent);
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 18px;
+    color: var(--muted);
+    margin: 0;
+}
+
+/* ---------- Search + filters ---------- */
+.controls {
+    max-width: 1200px;
+    margin: 0 auto 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+#searchInput {
+    width: 100%;
+    max-width: 420px;
+    padding: 12px 18px;
+    font-size: 16px;
+    color: var(--text);
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#searchInput:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.filter-btn {
+    padding: 9px 20px;
+    font-size: 15px;
+    color: var(--text);
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.filter-btn:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+}
+
+.filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #ffffff;
+}
+
+.result-count {
+    margin: 0;
+    font-size: 14px;
+    color: var(--muted);
+}
+
+/* ---------- Gallery layout ---------- */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Individual image card */
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    background-color: var(--card);
+    box-shadow: 0 4px 12px var(--shadow);
+    cursor: pointer;
+    animation: cardIn 0.4s ease;
+}
+
+.gallery-item.hidden {
+    display: none;
+}
+
+@keyframes cardIn {
+    from {
+        opacity: 0;
+        transform: scale(0.94);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.gallery-item:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* Image styling */
+.gallery-item img {
+    display: block;
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+/* Hover effect */
+.gallery-item:hover img {
+    transform: scale(1.08);
+}
+
+/* Name label on the card */
+.tag {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 28px 14px 12px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover .tag,
+.gallery-item:focus-visible .tag {
+    transform: translateY(0);
+}
+
+/* "Nothing found" message */
+.no-results {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 18px;
+    color: var(--muted);
+}
+
+/* ---------- Lightbox popup ---------- */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.92);
+    z-index: 1000;
+    padding: 50px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.lightbox.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox-figure {
+    margin: 0;
+    max-width: 85%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Image inside lightbox (fades when changing) */
+.lightbox img {
+    max-width: 100%;
+    max-height: 78vh;
+    object-fit: contain;
+    border-radius: 10px;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.lightbox img.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Caption + counter */
+.lightbox figcaption {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    color: #ffffff;
+    font-size: 18px;
+}
+
+.counter {
+    padding: 3px 12px;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+}
+
+/* Close button */
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 40px;
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* Previous and next buttons */
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 30px;
+    color: white;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    padding: 12px 18px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.prev-btn {
+    left: 20px;
+}
+
+.next-btn {
+    right: 20px;
+}
+
+/* Button hover effect */
+.nav-btn:hover,
+.close-btn:hover {
+    opacity: 0.7;
+}
+
+.nav-btn:focus-visible,
+.close-btn:focus-visible {
+    outline: 2px solid #ffffff;
+}
+
+/* ---------- Responsive design ---------- */
+@media (max-width: 900px) {
+    .gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .gallery {
+        grid-template-columns: 1fr;
+    }
+
+    header h1 {
+        font-size: 28px;
+        padding: 0 50px;
+    }
+
+    .gallery-item img {
+        height: 250px;
+    }
+
+    /* No hover on phones, so keep the name visible */
+    .tag {
+        transform: translateY(0);
+    }
+
+    .lightbox {
+        padding: 15px;
+    }
+
+    .lightbox-figure {
+        max-width: 100%;
+    }
+
+    .lightbox img {
+        max-height: 68vh;
+    }
+
+    .nav-btn {
+        font-size: 22px;
+        padding: 8px 12px;
+    }
+
+    .prev-btn {
+        left: 5px;
+    }
+
+    .next-btn {
+        right: 5px;
+    }
+}
+
+/* Respect users who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}

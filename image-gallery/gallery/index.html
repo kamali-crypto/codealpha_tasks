@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Image Gallery</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>My Image Gallery</h1>
+        <p>Explore my favourite food photos</p>
+    </header>
+
+    <main>
+        <!-- Search + filter controls -->
+        <section class="controls">
+            <input type="search" id="searchInput" placeholder="Search food... (e.g. pizza)" aria-label="Search images">
+
+            <div class="filters" id="filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="indian">Indian</button>
+                <button class="filter-btn" data-filter="fastfood">Fast Food</button>
+                <button class="filter-btn" data-filter="asian">Asian</button>
+                <button class="filter-btn" data-filter="dessert">Dessert</button>
+            </div>
+
+            <p class="result-count" id="resultCount" aria-live="polite"></p>
+        </section>
+
+        <!-- Gallery grid -->
+        <section class="gallery" id="gallery">
+
+            <div class="gallery-item" data-category="indian" data-title="Biryani" tabindex="0">
+                <img src="images/biryani.jpg" alt="Biryani" loading="lazy">
+                <span class="tag">Biryani</span>
+            </div>
+
+            <div class="gallery-item" data-category="fastfood" data-title="Pizza" tabindex="0">
+                <img src="images/pizza.jpg" alt="Pizza" loading="lazy">
+                <span class="tag">Pizza</span>
+            </div>
+
+            <div class="gallery-item" data-category="fastfood" data-title="Burger" tabindex="0">
+                <img src="images/burger.jpg" alt="Burger and fries" loading="lazy">
+                <span class="tag">Burger</span>
+            </div>
+
+            <div class="gallery-item" data-category="indian" data-title="Dosa" tabindex="0">
+                <img src="images/dosa.jpg" alt="Dosa with chutney and sambar" loading="lazy">
+                <span class="tag">Dosa</span>
+            </div>
+
+            <div class="gallery-item" data-category="fastfood" data-title="Pasta" tabindex="0">
+                <img src="images/pasta.jpg" alt="Penne pasta" loading="lazy">
+                <span class="tag">Pasta</span>
+            </div>
+
+            <div class="gallery-item" data-category="dessert" data-title="Cake" tabindex="0">
+                <img src="images/cake.jpg" alt="Raspberry cake" loading="lazy">
+                <span class="tag">Cake</span>
+            </div>
+
+            <div class="gallery-item" data-category="dessert" data-title="Brownie" tabindex="0">
+                <img src="images/brownie.jpg" alt="Chocolate brownie" loading="lazy">
+                <span class="tag">Brownie</span>
+            </div>
+
+            <div class="gallery-item" data-category="dessert" data-title="Ice Cream Cone" tabindex="0">
+                <img src="images/cone-ice-cream.jpg" alt="Ice cream cone" loading="lazy">
+                <span class="tag">Ice Cream Cone</span>
+            </div>
+
+            <div class="gallery-item" data-category="dessert" data-title="Ice Cream Scoops" tabindex="0">
+                <img src="images/ice-cream-scoops.jpg" alt="Ice cream scoops" loading="lazy">
+                <span class="tag">Ice Cream Scoops</span>
+            </div>
+
+            <div class="gallery-item" data-category="dessert" data-title="Ice Cream Bowl" tabindex="0">
+                <img src="images/ice-cream-bowl.jpg" alt="Ice cream in a glass" loading="lazy">
+                <span class="tag">Ice Cream Bowl</span>
+            </div>
+
+            <div class="gallery-item" data-category="dessert" data-title="Pancake" tabindex="0">
+                <img src="images/pancake.jpg" alt="Pancake stack with fruits" loading="lazy">
+                <span class="tag">Pancake</span>
+            </div>
+
+            <div class="gallery-item" data-category="asian" data-title="Fried Rice" tabindex="0">
+                <img src="images/fried-rice.jpg" alt="Vegetable fried rice" loading="lazy">
+                <span class="tag">Fried Rice</span>
+            </div>
+
+            <div class="gallery-item" data-category="asian" data-title="Noodles" tabindex="0">
+                <img src="images/noodles.jpg" alt="Spicy noodles" loading="lazy">
+                <span class="tag">Noodles</span>
+            </div>
+
+            <div class="gallery-item" data-category="asian" data-title="Sushi" tabindex="0">
+                <img src="images/sushi.jpg" alt="Salmon sushi rolls" loading="lazy">
+                <span class="tag">Sushi</span>
+            </div>
+
+            <div class="gallery-item" data-category="indian" data-title="Grilled Chicken" tabindex="0">
+                <img src="images/grilled-chicken.jpg" alt="Grilled chicken" loading="lazy">
+                <span class="tag">Grilled Chicken</span>
+            </div>
+
+        </section>
+
+        <!-- Shown when search/filter finds nothing -->
+        <p class="no-results" id="noResults" hidden>No images found. Try a different word or choose "All".</p>
+    </main>
+
+    <!-- Lightbox popup -->
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+        <button class="close-btn" id="closeBtn" aria-label="Close image">&times;</button>
+
+        <button class="nav-btn prev-btn" id="prevBtn" aria-label="Previous image">&#10094;</button>
+
+        <figure class="lightbox-figure">
+            <img src="" alt="" id="lightboxImage">
+            <figcaption>
+                <span id="lightboxCaption"></span>
+                <span class="counter" id="lightboxCounter"></span>
+            </figcaption>
+        </figure>
+
+        <button class="nav-btn next-btn" id="nextBtn" aria-label="Next image">&#10095;</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
